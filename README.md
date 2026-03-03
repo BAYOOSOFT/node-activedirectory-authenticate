@@ -10,6 +10,7 @@ Based on the work in the deprecated packages
 [activedirectory2](https://www.npmjs.com/package/activedirectory2) and
 [ldapjs](https://www.npmjs.com/package/ldapjs).
 
+
 ## Installation
 
 ```sh
