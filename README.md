@@ -34,6 +34,9 @@ const authenticator = new ActiveDirectoryAuthenticate(
     bindUserDN: 'CN=administrator,DC=example,DC=com',
     bindUserPassword: 'p@ssword',
 
+    // The DN of the Active Directory group whose members are permitted to authenticate as administrators
+    authenticationGroupDN: 'CN=eksAdminUsers,CN=Users,DC=example,DC=com',
+    
     // Temporarily cache user bind DNs to reduce LDAP lookups on immediate retries,
     // like typoed passwords.
     cacheUserBindDNs: true
@@ -78,6 +81,7 @@ see the available [ldapts](https://www.npmjs.com/package/ldapts) initialization 
 | `baseDN`           | The base distinguished name (DN) for the LDAP search.                | ⭐               |
 | `bindUserDN`       | The DN for the user to bind to for searching the directory.          | ⭐               |
 | `bindUserPassword` | The password for the `bindUserDN`.                                   | ⭐               |
+| `authenticationGroupDN` | The DN for the AD group whose members are permitted to authenticate as administrators.                                   | ⭐               |
 | `cacheUserBindDNs` | Whether or not to temporarily cache user bind DNs, reducing lookups. | Default: `false` |
 
 ## Error Types
