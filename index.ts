@@ -52,20 +52,26 @@ export interface ActiveDirectoryAuthenticateConfig {
    * Default is false.
    */
   cacheUserBindDNs?: boolean
+
+  /**
+   * Distinguished Name of the Active Directory group whose members are permitted to authenticate as an administrator at the Keyserver admin frontend.
+   * Example: 'CN=eksAdminUsers,CN=Users,DC=example,DC=com' 
+   */
+  authenticationGroupDN: string
 }
 
 export type ActiveDirectoryAuthenticateResult = { bindUserDN: string } & (
   | {
-      success: false
+    success: false
 
-      error?: unknown
-      errorType: ActiveDirectoryAuthenticateErrorType
-    }
+    error?: unknown
+    errorType: ActiveDirectoryAuthenticateErrorType
+  }
   | {
-      success: true
+    success: true
 
-      sAMAccountName: string
-    }
+    sAMAccountName: string
+  }
 )
 
 export default class ActiveDirectoryAuthenticate {
@@ -207,7 +213,11 @@ export default class ActiveDirectoryAuthenticate {
           new EqualityFilter({
             attribute: 'objectClass',
             value: 'user'
-          })
+          }),
+          new EqualityFilter({
+            attribute: 'memberof',
+            value: this.#activeDirectoryAuthenticateConfig.authenticationGroupDN
+          }),
         ]
       })
 
