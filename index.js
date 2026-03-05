@@ -104,7 +104,11 @@ export default class ActiveDirectoryAuthenticate {
                     new EqualityFilter({
                         attribute: 'objectClass',
                         value: 'user'
-                    })
+                    }),
+                    new EqualityFilter({
+                        attribute: 'memberof',
+                        value: this.#activeDirectoryAuthenticateConfig.authenticationGroupDN
+                    }),
                 ]
             });
             const resultUser = await client.search(this.#activeDirectoryAuthenticateConfig.baseDN, {
